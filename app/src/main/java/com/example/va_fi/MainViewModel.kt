@@ -22,9 +22,10 @@ class MainViewModel
 
     fun getWifi()=mainRepository.getWifiUrls()
 
-    fun setWifi(){
+    fun setWifi(url:String){
         viewModelScope.launch {
-            mainRepository.insertWifiUrl(WifiUrl(0,"dfkj"))
+            val wifiUrl= WifiUrl(null,url,true,System.currentTimeMillis(),0)
+            mainRepository.insertWifiUrl(wifiUrl)
         }
     }
     fun deleteWifi(wifiUrl: WifiUrl){
