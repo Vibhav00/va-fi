@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
@@ -28,10 +29,29 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:lines="1"
-                android:text=""
+                android:text="http://172.29.48.1:1000/keepalive?0e010b00030a04b2"
                 android:textSize="10dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="center"
+        >
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/cancel_bnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="cancle"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/connect_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="Connect"/>
     </LinearLayout>
 </LinearLayout>

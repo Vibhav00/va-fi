@@ -59,7 +59,21 @@ dependencies {
     implementation ("androidx.hilt:hilt-navigation-compose:1.2.0")
 
 
-
     implementation ("com.airbnb.android:lottie:6.4.0")
+    implementation ("org.jsoup:jsoup:1.17.2")
+
+
+    // Coroutines
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3")
+
+
+    // Room
+    implementation ("androidx.room:room-runtime:2.6.1")
+    kapt ("androidx.room:room-compiler:2.6.1")
+
+    // Kotlin Extensions and Coroutines support for Room
+    implementation ("androidx.room:room-ktx:2.3.0")
+
 
 }

@@ -7,6 +7,7 @@ import android.os.IBinder
 import android.util.Log
 import android.view.LayoutInflater
 import android.webkit.WebSettings
+import androidx.activity.viewModels
 import com.example.va_fi.databinding.BackgoundBrouserBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -16,18 +17,23 @@ import kotlinx.coroutines.launch
 
 class MyService : Service() {
 
+    var urll :String =""
     override fun onBind(p0: Intent?): IBinder? {
         TODO("Not yet implemented")
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         set()
+        if (intent != null) {
+            urll= intent.getStringExtra("url").toString()
+        }
         return START_NOT_STICKY
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         Log.e("vibhav", "webpage is closed ")
+        stopSelf()
+        super.onDestroy()
 
 
     }
@@ -38,7 +44,7 @@ class MyService : Service() {
         val backgoundBrouserBinding = BackgoundBrouserBinding.inflate(LayoutInflater.from(this))
         val wv = backgoundBrouserBinding.wv
 //        var url = "http://172.29.48.1:1000/keepalive?0f06040c080208be"
-        var url = "https://en.wikipedia.org/wiki/Human"
+        var url = urll
         var settings = wv.settings
         settings.loadWithOverviewMode = true;
         settings.useWideViewPort = true;
