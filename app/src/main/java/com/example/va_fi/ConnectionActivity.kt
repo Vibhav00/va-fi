@@ -42,6 +42,8 @@ class ConnectionActivity : AppCompatActivity() {
         var count = 2400
         GlobalScope.launch(Dispatchers.Main) {
             while (true) {
+                if(count==2100)
+                    count=2400
                 activityConnectionBinding.tvCountdown.text = (count--).toString()
                 delay(1000)
             }

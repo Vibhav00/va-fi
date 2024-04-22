@@ -120,7 +120,7 @@ class MainActivity() : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
             return false
         }
         if(text.contains("http:")){
-              if(!text.contains("http://172.29.48.1:1000/keepalive?")){
+              if(!(text.contains("http://172.29.48.1:1000/keepalive?") || text.contains("http://172.16.0.1:1000/keepalive?")  )){
                   Toast.makeText(this,"Url must be correct ",Toast.LENGTH_SHORT).show()
                   return  false
               }
@@ -130,6 +130,8 @@ class MainActivity() : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
 
                   return  false
               }
+        }else{
+            return  false
         }
 
         return true
@@ -160,7 +162,7 @@ class MainActivity() : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
                 ((currentTime - lastTime) / (60_000)).toString(),
                 Toast.LENGTH_SHORT
             ).show()
-            if ((currentTime - lastTime) / (60_000) < 2) {
+            if ((currentTime - lastTime) / (60_000) < 40) {
                 startDialog()
                 Toast.makeText(this, "Still Active", Toast.LENGTH_SHORT).show()
             } else {
@@ -207,14 +209,9 @@ class MainActivity() : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
     private fun startService(textString: String, customDialog: AlertDialog?) {
         GlobalScope.launch(Dispatchers.Main) {
             var text = textString
-            if(!text.contains("http")){
-                text = "http://172.29.48.1:1000/keepalive?$text"
-            }
             if (!validateInput(text)) {
-                Toast.makeText(this@MainActivity, "url is worong", Toast.LENGTH_SHORT).show()
                 return@launch
             } else if (!validateJsup(text)) {
-                Toast.makeText(this@MainActivity, "url is worong", Toast.LENGTH_SHORT).show()
                 return@launch
             }
             mainViewModel.setWifi(text)
@@ -239,4 +236,6 @@ class MainActivity() : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
             false // Wi-Fi adapter is OFF
         }
     }
+
+//    http://172.29.48.1:1000/keepalive?0e010b00030a04b2
 }

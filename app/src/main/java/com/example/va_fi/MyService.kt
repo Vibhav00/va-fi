@@ -8,6 +8,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.webkit.WebSettings
 import androidx.activity.viewModels
+import com.example.va_fi.constants.Constants
 import com.example.va_fi.databinding.BackgoundBrouserBinding
 import com.example.va_fi.preferenceutils.PreferenceUtils
 import kotlinx.coroutines.Dispatchers
@@ -58,7 +59,7 @@ class MyService : Service() {
             while (true) {
                 Log.e("service_running", "webpage is reloaded  ")
                 PreferenceUtils.getSharedPreferences(this@MyService).setLastActive(System.currentTimeMillis())
-                delay(2000)
+                delay(Constants.RELOAD_TIME)
                 wv.reload()
             }
 

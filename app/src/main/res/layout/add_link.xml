@@ -29,7 +29,6 @@
                 android:imeOptions="actionSearch"
                 android:inputType="text"
                 android:lines="1"
-                android:text="http://172.29.48.1:1000/keepalive?0e010b00030a04b2"
                 android:textSize="10dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
