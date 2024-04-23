@@ -16,11 +16,11 @@ class MainRepository(private val dao: WifiUrlDao) {
         return dao.getWifiUrlById(id)
     }
 
-    suspend fun insertWifiUrl(WifiUrl: WifiUrl) {
-        dao.insertWifiUrl(WifiUrl)
+    suspend fun insertWifiUrl(wifiUrl: WifiUrl) {
+        dao.insertWifiUrl(wifiUrl)
     }
 
-    suspend fun deleteWifiUrl(WifiUrl: WifiUrl) {
-        dao.deleteWifiUrl(WifiUrl)
+    suspend fun deleteWifiUrl(wifiUrl: WifiUrl) {
+        dao.deleteWifiUrl(wifiUrl)
     }
 }

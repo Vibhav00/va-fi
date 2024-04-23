@@ -44,13 +44,17 @@
             android:id="@+id/cancel_bnt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="cancle"/>
+            android:backgroundTint="#c2b8b2"
+            android:textStyle="bold"
+            android:text="Cancel"/>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/connect_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
+            android:backgroundTint="#c2b8b2"
+            android:textStyle="bold"
             android:text="Connect"/>
     </LinearLayout>
 </LinearLayout>

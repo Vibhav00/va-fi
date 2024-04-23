@@ -27,7 +27,7 @@ import org.jsoup.Jsoup
 
 
 @AndroidEntryPoint
-class MainActivity() : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
+class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
     /** main activity binding **/
     private lateinit var activityMainBinding: ActivityMainBinding
 
@@ -47,14 +47,14 @@ class MainActivity() : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
             StrictMode.setThreadPolicy(policy)
         }
         checkIfActive()
-        setOnclickListners()
+        setOnClickListener()
         checkWifiActive()
 
     }
 
 
     /** function to handle click listeners **/
-    private fun setOnclickListners() {
+    private fun setOnClickListener() {
         activityMainBinding.btnConnect.setOnClickListener {
             val text = PreferenceUtils.getSharedPreferences(this@MainActivity).getLastUrl()
             startService(text, null)
@@ -101,7 +101,7 @@ class MainActivity() : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
             this, Observer {
                 if (it.isEmpty()) {
                     dialog.dismiss()
-                    Toast.makeText(this@MainActivity, "No Urls Available ", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@MainActivity, "No URL Available", Toast.LENGTH_SHORT)
                         .show()
                     return@Observer
                 }
@@ -139,14 +139,14 @@ class MainActivity() : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
     }
 
     /** validating if the url is correct or not  **/
-    private fun validateJsup(text: String): Boolean {
+    private fun validateJsoup(text: String): Boolean {
         try {
-            val j = Jsoup.connect(text).get();
+            val j = Jsoup.connect(text).get()
             return j.toString()
                 .contains("This browser window is used to keep your authentication session active.")
 
         } catch (e: Exception) {
-            Toast.makeText(this,"Url is not correct  ",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this," Your URL is not correct!",Toast.LENGTH_SHORT).show()
             return false
         }
     }
@@ -189,7 +189,7 @@ class MainActivity() : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
                 startService(text, dialog)
 
             }
-            btnCancle.setOnClickListener {
+            btnCancel.setOnClickListener {
                 dialog.dismiss()
             }
         }
@@ -211,14 +211,14 @@ class MainActivity() : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
             var text = textString
             if (!validateInput(text)) {
                 return@launch
-            } else if (!validateJsup(text)) {
+            } else if (!validateJsoup(text)) {
                 return@launch
             }
             mainViewModel.setWifi(text)
             PreferenceUtils.getSharedPreferences(this@MainActivity).setLastUrl(text)
             customDialog?.dismiss()
             val intent = Intent(this@MainActivity, ConnectionActivity::class.java)
-            intent.putExtra("url", text)
+            intent.putExtra("URL", text)
             startActivity(intent)
         }
     }

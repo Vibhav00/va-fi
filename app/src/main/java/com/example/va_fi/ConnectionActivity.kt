@@ -25,13 +25,13 @@ class ConnectionActivity : AppCompatActivity() {
         activityConnectionBinding = ActivityConnectionBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(activityConnectionBinding.root)
-        url = intent.getStringExtra("url").toString()
+        url = intent.getStringExtra("URL").toString()
         setCountDown()
         startService()
-        onClickListners()
+        onClickListener()
     }
 
-    private fun onClickListners() {
+    private fun onClickListener() {
         activityConnectionBinding.btnClose.setOnClickListener {
             stopService()
         }
@@ -65,7 +65,7 @@ class ConnectionActivity : AppCompatActivity() {
 
 
     @SuppressLint("JavascriptInterface")
-    private  fun setWebview(){
+    private  fun setWebView(){
 //        val wv = activityConnectionBinding.wv
 //        var url = "http://172.29.48.1:1000/keepalive?0e010b00030a04b2"
 //        var settings = wv.settings
@@ -73,9 +73,9 @@ class ConnectionActivity : AppCompatActivity() {
 //        wv.loadUrl(url)
 //
 //        GlobalScope.launch {
-//            Log.e("jsup","statted ")
+//            Log.e("jsoup","stated ")
 //            val j = Jsoup.connect("http://172.29.48.1:1000/keepalive?0e010b00030a04b2").get();
-//            Log.e("jsup","ended")
+//            Log.e("jsoup","ended")
 //            Log.e("vibhav",j.toString())
 //        }
     }
