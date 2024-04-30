@@ -128,6 +128,8 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
 
 
 
+
+
         if (Build.VERSION.SDK_INT > 9) {
             val policy = ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)

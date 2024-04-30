@@ -8,6 +8,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.va_fi.R
 
 class dashboard_header : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -17,5 +18,7 @@ class dashboard_header : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+
     }
 }
