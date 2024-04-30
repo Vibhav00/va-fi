@@ -24,4 +24,37 @@
                 />
         </menu>
     </item>
+    <item android:title="Socialize with CLUB EXCEL">
+        <menu>
+            <item
+                android:id="@+id/email"
+                android:title="Email"
+
+                />
+            <item
+                android:id="@+id/instagram"
+                android:title="IG: @_club_excel_"
+
+            />
+            <item
+                android:id="@+id/linkedin"
+                android:title="Linkedin"
+
+                />
+            <item
+                android:id="@+id/twitter"
+                android:title="X : @_club_excel_"
+
+
+                />
+            <item
+                android:id="@+id/facebook"
+                android:title="Facebook"
+
+                />
+        </menu>
+    </item>
+
+
+
 </menu>

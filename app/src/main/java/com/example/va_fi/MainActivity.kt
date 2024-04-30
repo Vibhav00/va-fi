@@ -89,6 +89,39 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(linkedInProfileUrl))
                     startActivity(intent)
                 }
+
+
+                R.id.instagram ->{
+                    val instaUrl= "https://www.instagram.com/_club_excel_?igshid=bG40ZnMxd3lwNDcz"
+                    val intent =Intent(Intent.ACTION_VIEW, Uri.parse(instaUrl))
+                    startActivity(intent)
+
+                }
+                R.id.linkedin -> {
+                    val linkedInProfileUrl = "https://www.linkedin.com/company/club-excel-nist"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(linkedInProfileUrl))
+                    startActivity(intent)
+
+                }
+                R.id.email ->{
+                    val emailIntent = Intent(Intent.ACTION_SEND).apply {
+                        type = "message/rfc822"
+                        putExtra(Intent.EXTRA_EMAIL, arrayOf("clubexcel@nist.edu"))
+                    }
+                    //startActivity(Intent.createChooser(emailIntent, "Email via"))
+                    startActivity(emailIntent)
+
+                }
+                R.id.facebook ->{
+                    val fbUrl ="https://www.facebook.com/excelnist?mibextid=ZbWKwL"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(fbUrl))
+                    startActivity(intent)
+                }
+                R.id.twitter->{
+                    val twitterurl ="https://twitter.com/_club_excel_?t=fMzfK3CcCFMWGtjxdDrqXw&s=09"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(twitterurl))
+                    startActivity(intent)
+                }
             }
             true
         }
