@@ -2,11 +2,13 @@ package com.example.va_fi
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.net.Uri
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -69,6 +71,30 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
 
         drawer.addDrawerListener(toggle)
         toggle.syncState()
+
+        navigationview.setNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.vibhav -> {
+                    val linkedInProfileUrl = "https://www.linkedin.com/in/vibhavkumargrd00170/"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(linkedInProfileUrl))
+                    startActivity(intent)
+                }
+                R.id.rahul -> {
+                    val linkedInProfileUrl = "https://www.linkedin.com/in/rahul-kumar-4878a61ab/"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(linkedInProfileUrl))
+                    startActivity(intent)
+                }
+                R.id.aman -> {
+                    val linkedInProfileUrl = "https://www.linkedin.com/in/aman-kumar-b12085253/"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(linkedInProfileUrl))
+                    startActivity(intent)
+                }
+            }
+            true
+        }
+
+
+
         if (Build.VERSION.SDK_INT > 9) {
             val policy = ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)
