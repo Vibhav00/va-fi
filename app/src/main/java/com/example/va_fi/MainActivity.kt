@@ -9,7 +9,11 @@ import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
 import android.widget.Toast
 import androidx.activity.viewModels
+import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.va_fi.adapter.AdapterWifi
@@ -19,6 +23,7 @@ import com.example.va_fi.databinding.AllListBinding
 import com.example.va_fi.databinding.StillConnectedBinding
 import com.example.va_fi.model.WifiUrl
 import com.example.va_fi.preferenceutils.PreferenceUtils
+import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -28,6 +33,14 @@ import org.jsoup.Jsoup
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
+
+
+
+    private lateinit var toolbar: Toolbar
+    private lateinit var navigationview: NavigationView
+    private lateinit var drawer: DrawerLayout
+
+
     /** main activity binding **/
     private lateinit var activityMainBinding: ActivityMainBinding
 
@@ -38,10 +51,24 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
     /** getting view model by dependency injection  **/
     private val mainViewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
+
+
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(activityMainBinding.root)
+
+        drawer = findViewById(R.id.drawer)
+        navigationview =findViewById(R.id.NavigationView)
+        toolbar= findViewById(R.id.toolbar)
+
+        setSupportActionBar(toolbar)
+        val toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.OpenDrawer,R.string.CloseDrawer)
+
+        drawer.addDrawerListener(toggle)
+        toggle.syncState()
         if (Build.VERSION.SDK_INT > 9) {
             val policy = ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)
@@ -237,5 +264,15 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
         }
     }
 
+
+    override fun onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)){
+            drawer.closeDrawer(GravityCompat.START)
+        } else{
+            super.onBackPressed()
+        }
+    }
+
 //    http://172.29.48.1:1000/keepalive?0e010b00030a04b2
+
 }

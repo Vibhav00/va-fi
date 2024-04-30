@@ -18,7 +18,8 @@
         app:lottie_rawRes="@raw/wifi_loading"
         android:layout_marginRight="15dp"
         android:layout_marginTop="15dp"
-        app:lottie_autoPlay="true"/>
+        app:lottie_autoPlay="true"
+        />
 
 
 
