@@ -50,7 +50,7 @@ class MyService : Service() {
         var settings = wv.settings
         settings.loadWithOverviewMode = true
         settings.useWideViewPort = true
-        settings.javaScriptEnabled = true
+        true.also { settings.javaScriptEnabled = it }
         settings.cacheMode = WebSettings.LOAD_NO_CACHE
         wv.loadUrl(url)
 
