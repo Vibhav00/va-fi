@@ -27,6 +27,7 @@
         android:layout_height="wrap_content"
         android:textSize="15sp"
         android:text="clubexcel.co.in"
+        android:autoLink="web"
         android:id="@+id/website"
         android:textColor="#ECD6D6"
         />
