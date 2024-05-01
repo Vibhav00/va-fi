@@ -1,7 +1,9 @@
 package com.example.va_fi
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.net.wifi.WifiManager
 import android.os.Build
@@ -52,8 +54,6 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
     /** getting view model by dependency injection  **/
     private val mainViewModel: MainViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
-
-
 
 
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
@@ -134,9 +134,6 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
         }
 
 
-
-
-
         if (Build.VERSION.SDK_INT > 9) {
             val policy = ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)
@@ -207,7 +204,6 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
         )
     }
 
-
     /** validating if input is correct or not   **/
     private fun validateInput(text: String): Boolean {
         if(text.isEmpty()){
@@ -215,8 +211,10 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
             return false
         }
         if(text.contains("http:")){
-              if(!(text.contains("http://172.29.48.1:1000/keepalive?") || text.contains("http://172.16.0.1:1000/keepalive?")
-                          || text.contains("http://172.19.0.1:1000/keepalive?"))){
+              if(!(text.contains("http://172.29.48.1:1000/keepalive?")
+                          || text.contains("http://172.16.0.1:1000/keepalive?")
+                          || text.contains("http://172.19.0.1:1000/keepalive?")
+                          || text.contains("http://172.29.32.1:1000/keepalive?") )){
 
                   Toast.makeText(this,"URL must be correct! ",Toast.LENGTH_SHORT).show()
                   return  false
@@ -250,16 +248,26 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
     }
 
 
-    /** checking if the url is still active  **/
+    /** checking if the url is still active and WiFi is active  **/
     private fun checkIfActive() {
         try {
+              val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+              val networkInfo = connectivityManager.activeNetworkInfo
+              val isWifiActive = networkInfo?.type == ConnectivityManager.TYPE_WIFI
+
+              if (!isWifiActive)
+              {
+                  Toast.makeText(this, "WiFi is not active.", Toast.LENGTH_SHORT).show()
+                  return
+              }
+
             val lastTime = PreferenceUtils.getSharedPreferences(this).getLastActive()
             val currentTime = System.currentTimeMillis()
             Toast.makeText(
                 this,
                 ((currentTime - lastTime) / (60_000)).toString(),
-                Toast.LENGTH_SHORT
-            ).show()
+                Toast.LENGTH_SHORT).show()
+
             if ((currentTime - lastTime) / (60_000) < 40) {
                 startDialog()
                 Toast.makeText(this, "Connection is still active.", Toast.LENGTH_SHORT).show()
