@@ -3,19 +3,12 @@ package com.example.va_fi
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
-import android.webkit.ValueCallback
-import android.webkit.WebSettings
-import android.webkit.WebView
-import android.webkit.WebViewClient
-import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.va_fi.databinding.ActivityConnectionBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.jsoup.Jsoup
 
 
 class ConnectionActivity : AppCompatActivity() {
@@ -26,9 +19,9 @@ class ConnectionActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(activityConnectionBinding.root)
         url = intent.getStringExtra("URL").toString()
-        setCountDown()
-        startService()
-        onClickListener()
+        this.setCountDown()
+        this.startService()
+        this.onClickListener()
     }
 
     private fun onClickListener() {
@@ -42,6 +35,7 @@ class ConnectionActivity : AppCompatActivity() {
         var count = 2400
         GlobalScope.launch(Dispatchers.Main) {
             while (true) {
+
                 if(count==2100)
                     count=2400
                 activityConnectionBinding.tvCountdown.text = (count--).toString()
@@ -53,7 +47,7 @@ class ConnectionActivity : AppCompatActivity() {
 
     private fun startService() {
         val intent = Intent(this@ConnectionActivity, MyService::class.java)
-        intent.putExtra("url",url)
+        intent.putExtra("URL",url)
         startService(intent)
 
     }

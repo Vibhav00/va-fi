@@ -1,14 +1,15 @@
 package com.example.va_fi
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.net.Uri
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
-import android.view.MenuItem
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
@@ -55,8 +56,6 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
-
-
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -74,6 +73,13 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
 
         navigationview.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
+
+                R.id.website ->{
+                    val excelUrl = "https://clubexcel.co.in/"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(excelUrl))
+                    startActivity(intent)
+                }
+
                 R.id.vibhav -> {
                     val linkedInProfileUrl = "https://www.linkedin.com/in/vibhavkumargrd00170/"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(linkedInProfileUrl))
@@ -122,21 +128,19 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(twitterurl))
                     startActivity(intent)
                 }
+
             }
             true
         }
-
-
-
 
 
         if (Build.VERSION.SDK_INT > 9) {
             val policy = ThreadPolicy.Builder().permitAll().build()
             StrictMode.setThreadPolicy(policy)
         }
-        checkIfActive()
-        setOnClickListener()
-        checkWifiActive()
+        this.checkIfActive()
+        this.setOnClickListener()
+        this.checkWifiActive()
 
     }
 
@@ -200,25 +204,29 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
         )
     }
 
-
     /** validating if input is correct or not   **/
     private fun validateInput(text: String): Boolean {
         if(text.isEmpty()){
-            Toast.makeText(this,"Url must not be empty ",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"URL must not be empty!",Toast.LENGTH_SHORT).show()
             return false
         }
         if(text.contains("http:")){
-              if(!(text.contains("http://172.29.48.1:1000/keepalive?") || text.contains("http://172.16.0.1:1000/keepalive?")  )){
-                  Toast.makeText(this,"Url must be correct ",Toast.LENGTH_SHORT).show()
+              if(!(text.contains("http://172.29.48.1:1000/keepalive?")
+                          || text.contains("http://172.16.0.1:1000/keepalive?")
+                          || text.contains("http://172.19.0.1:1000/keepalive?")
+                          || text.contains("http://172.29.32.1:1000/keepalive?") )){
+
+                  Toast.makeText(this,"URL must be correct! ",Toast.LENGTH_SHORT).show()
                   return  false
               }
 
               if(text.split("?")[1].isEmpty()){
-                  Toast.makeText(this,"Url must be correct  ",Toast.LENGTH_SHORT).show()
+                  Toast.makeText(this,"URL must be correct  ",Toast.LENGTH_SHORT).show()
 
                   return  false
               }
-        }else{
+        }else
+        {
             return  false
         }
 
@@ -228,33 +236,43 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
 
     /** validating if the url is correct or not  **/
     private fun validateJsoup(text: String): Boolean {
-        try {
+        return try {
             val j = Jsoup.connect(text).get()
-            return j.toString()
+             j.toString()
                 .contains("This browser window is used to keep your authentication session active.")
 
         } catch (e: Exception) {
-            Toast.makeText(this," Your URL is not correct!",Toast.LENGTH_SHORT).show()
-            return false
+            Toast.makeText(this,"Your URL is not correct!",Toast.LENGTH_SHORT).show()
+             false
         }
     }
 
 
-    /** checking if the url is still active  **/
+    /** checking if the url is still active and WiFi is active  **/
     private fun checkIfActive() {
         try {
+              val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+              val networkInfo = connectivityManager.activeNetworkInfo
+              val isWifiActive = networkInfo?.type == ConnectivityManager.TYPE_WIFI
+
+              if (!isWifiActive)
+              {
+                  Toast.makeText(this, "WiFi is not active.", Toast.LENGTH_SHORT).show()
+                  return
+              }
+
             val lastTime = PreferenceUtils.getSharedPreferences(this).getLastActive()
             val currentTime = System.currentTimeMillis()
             Toast.makeText(
                 this,
                 ((currentTime - lastTime) / (60_000)).toString(),
-                Toast.LENGTH_SHORT
-            ).show()
+                Toast.LENGTH_SHORT).show()
+
             if ((currentTime - lastTime) / (60_000) < 40) {
                 startDialog()
-                Toast.makeText(this, "Still Active", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Connection is still active.", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(this, "not Active ", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Connection is not active.", Toast.LENGTH_SHORT).show()
             }
         } catch (e: Exception) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show()
