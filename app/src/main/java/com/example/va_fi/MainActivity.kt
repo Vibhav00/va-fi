@@ -37,7 +37,6 @@ import org.jsoup.Jsoup
 class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
 
 
-
     private lateinit var toolbar: Toolbar
     private lateinit var navigationview: NavigationView
     private lateinit var drawer: DrawerLayout
@@ -55,35 +54,42 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
     override fun onCreate(savedInstanceState: Bundle?) {
 
 
-
-
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
         setContentView(activityMainBinding.root)
 
         drawer = findViewById(R.id.drawer)
-        navigationview =findViewById(R.id.NavigationView)
-        toolbar= findViewById(R.id.toolbar)
+        navigationview = findViewById(R.id.NavigationView)
+        toolbar = findViewById(R.id.toolbar)
 
         setSupportActionBar(toolbar)
-        val toggle = ActionBarDrawerToggle(this, drawer, toolbar, R.string.OpenDrawer,R.string.CloseDrawer)
+        val toggle =
+            ActionBarDrawerToggle(this, drawer, toolbar, R.string.OpenDrawer, R.string.CloseDrawer)
 
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
         navigationview.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
+                R.id.website -> {
+                    val clubUrl = "https://clubexcel.co.in/"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(clubUrl))
+                    startActivity(intent)
+                }
+
                 R.id.vibhav -> {
                     val linkedInProfileUrl = "https://www.linkedin.com/in/vibhavkumargrd00170/"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(linkedInProfileUrl))
                     startActivity(intent)
                 }
+
                 R.id.rahul -> {
                     val linkedInProfileUrl = "https://www.linkedin.com/in/rahul-kumar-4878a61ab/"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(linkedInProfileUrl))
                     startActivity(intent)
                 }
+
                 R.id.aman -> {
                     val linkedInProfileUrl = "https://www.linkedin.com/in/aman-kumar-b12085253/"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(linkedInProfileUrl))
@@ -91,19 +97,21 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
                 }
 
 
-                R.id.instagram ->{
-                    val instaUrl= "https://www.instagram.com/_club_excel_?igshid=bG40ZnMxd3lwNDcz"
-                    val intent =Intent(Intent.ACTION_VIEW, Uri.parse(instaUrl))
+                R.id.instagram -> {
+                    val instaUrl = "https://www.instagram.com/_club_excel_?igshid=bG40ZnMxd3lwNDcz"
+                    val intent = Intent(Intent.ACTION_VIEW, Uri.parse(instaUrl))
                     startActivity(intent)
 
                 }
+
                 R.id.linkedin -> {
                     val linkedInProfileUrl = "https://www.linkedin.com/company/club-excel-nist"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(linkedInProfileUrl))
                     startActivity(intent)
 
                 }
-                R.id.email ->{
+
+                R.id.email -> {
                     val emailIntent = Intent(Intent.ACTION_SEND).apply {
                         type = "message/rfc822"
                         putExtra(Intent.EXTRA_EMAIL, arrayOf("clubexcel@nist.edu"))
@@ -112,13 +120,16 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
                     startActivity(emailIntent)
 
                 }
-                R.id.facebook ->{
-                    val fbUrl ="https://www.facebook.com/excelnist?mibextid=ZbWKwL"
+
+                R.id.facebook -> {
+                    val fbUrl = "https://www.facebook.com/excelnist?mibextid=ZbWKwL"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(fbUrl))
                     startActivity(intent)
                 }
-                R.id.twitter->{
-                    val twitterurl ="https://twitter.com/_club_excel_?t=fMzfK3CcCFMWGtjxdDrqXw&s=09"
+
+                R.id.twitter -> {
+                    val twitterurl =
+                        "https://twitter.com/_club_excel_?t=fMzfK3CcCFMWGtjxdDrqXw&s=09"
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(twitterurl))
                     startActivity(intent)
                 }
@@ -203,23 +214,23 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
 
     /** validating if input is correct or not   **/
     private fun validateInput(text: String): Boolean {
-        if(text.isEmpty()){
-            Toast.makeText(this,"Url must not be empty ",Toast.LENGTH_SHORT).show()
+        if (text.isEmpty()) {
+            Toast.makeText(this, "Url must not be empty ", Toast.LENGTH_SHORT).show()
             return false
         }
-        if(text.contains("http:")){
-              if(!(text.contains("http://172.29.48.1:1000/keepalive?") || text.contains("http://172.16.0.1:1000/keepalive?")  )){
-                  Toast.makeText(this,"Url must be correct ",Toast.LENGTH_SHORT).show()
-                  return  false
-              }
+        if (text.contains("http:")) {
+            if (!(text.contains("http://172.29.48.1:1000/keepalive?") || text.contains("http://172.16.0.1:1000/keepalive?"))) {
+                Toast.makeText(this, "Url must be correct ", Toast.LENGTH_SHORT).show()
+                return false
+            }
 
-              if(text.split("?")[1].isEmpty()){
-                  Toast.makeText(this,"Url must be correct  ",Toast.LENGTH_SHORT).show()
+            if (text.split("?")[1].isEmpty()) {
+                Toast.makeText(this, "Url must be correct  ", Toast.LENGTH_SHORT).show()
 
-                  return  false
-              }
-        }else{
-            return  false
+                return false
+            }
+        } else {
+            return false
         }
 
         return true
@@ -234,7 +245,7 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
                 .contains("This browser window is used to keep your authentication session active.")
 
         } catch (e: Exception) {
-            Toast.makeText(this," Your URL is not correct!",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, " Your URL is not correct!", Toast.LENGTH_SHORT).show()
             return false
         }
     }
@@ -313,7 +324,7 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
 
 
     /** function to check if wifi is on **/
-    private  fun checkWifiActive():Boolean{
+    private fun checkWifiActive(): Boolean {
         val wifiMgr = getSystemService(WIFI_SERVICE) as WifiManager
         return if (wifiMgr.isWifiEnabled) { // Wi-Fi adapter is ON
             val wifiInfo = wifiMgr.connectionInfo
@@ -327,9 +338,9 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
 
 
     override fun onBackPressed() {
-        if (drawer.isDrawerOpen(GravityCompat.START)){
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START)
-        } else{
+        } else {
             super.onBackPressed()
         }
     }

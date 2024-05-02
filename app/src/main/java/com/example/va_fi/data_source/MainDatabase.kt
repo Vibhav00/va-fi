@@ -9,9 +9,9 @@ import com.example.va_fi.model.WifiUrl
     entities = [WifiUrl::class],
     version = 1
 )
-abstract class MainDatabase:RoomDatabase() {
+abstract class MainDatabase : RoomDatabase() {
 
-    abstract val mwifiUrlDao : WifiUrlDao
+    abstract val mwifiUrlDao: WifiUrlDao
 
     companion object {
         /** Name of the Database **/

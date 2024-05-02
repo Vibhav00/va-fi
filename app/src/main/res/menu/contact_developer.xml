@@ -2,26 +2,20 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-
-
-
     <item android:title="Developer">
         <menu>
             <item
                 android:id="@+id/vibhav"
-                android:title="Vibhav"
                 android:icon="@drawable/person"
-                />
+                android:title="Vibhav" />
             <item
                 android:id="@+id/rahul"
-                android:title="Rahul"
                 android:icon="@drawable/person"
-                />
+                android:title="Rahul" />
             <item
                 android:id="@+id/aman"
-                android:title="Aman"
                 android:icon="@drawable/person"
-                />
+                android:title="Aman" />
         </menu>
     </item>
     <item android:title="Socialize with CLUB EXCEL">
@@ -45,16 +39,14 @@
                 android:id="@+id/instagram"
                 android:title="IG: @_club_excel_"
 
-            />
+                />
             <item
                 android:id="@+id/twitter"
                 android:title="X : @_club_excel_"
 
                 />
-
         </menu>
     </item>
-
 
 
 </menu>

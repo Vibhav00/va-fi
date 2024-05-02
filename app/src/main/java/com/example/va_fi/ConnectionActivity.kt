@@ -20,7 +20,7 @@ import org.jsoup.Jsoup
 
 class ConnectionActivity : AppCompatActivity() {
     private lateinit var activityConnectionBinding: ActivityConnectionBinding
-    private var url:String=""
+    private var url: String = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         activityConnectionBinding = ActivityConnectionBinding.inflate(layoutInflater)
         super.onCreate(savedInstanceState)
@@ -42,8 +42,8 @@ class ConnectionActivity : AppCompatActivity() {
         var count = 2400
         GlobalScope.launch(Dispatchers.Main) {
             while (true) {
-                if(count==2100)
-                    count=2400
+                if (count == 2100)
+                    count = 2400
                 activityConnectionBinding.tvCountdown.text = (count--).toString()
                 delay(1000)
             }
@@ -53,7 +53,7 @@ class ConnectionActivity : AppCompatActivity() {
 
     private fun startService() {
         val intent = Intent(this@ConnectionActivity, MyService::class.java)
-        intent.putExtra("url",url)
+        intent.putExtra("url", url)
         startService(intent)
 
     }
@@ -65,7 +65,7 @@ class ConnectionActivity : AppCompatActivity() {
 
 
     @SuppressLint("JavascriptInterface")
-    private  fun setWebView(){
+    private fun setWebView() {
 //        val wv = activityConnectionBinding.wv
 //        var url = "http://172.29.48.1:1000/keepalive?0e010b00030a04b2"
 //        var settings = wv.settings
@@ -79,9 +79,6 @@ class ConnectionActivity : AppCompatActivity() {
 //            Log.e("vibhav",j.toString())
 //        }
     }
-
-
-
 
 
 }

@@ -33,18 +33,15 @@ class PreferenceUtils {
         }
 
 
-
         /** funtion to get string **/
         fun getLastActive(): Long {
             return mSharedPreferences.getLong("time", 0)
         }
 
-        fun setLastActive(time:Long): Boolean {
+        fun setLastActive(time: Long): Boolean {
             mSharedPreferences.edit().putLong("time", time).apply()
             return true
         }
-
-
 
 
     }

@@ -5,22 +5,20 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.SplashActivity"
-    android:background="@drawable/splash">
+    android:background="@drawable/splash"
+    tools:context=".activities.SplashActivity">
 
     <com.airbnb.lottie.LottieAnimationView
         android:layout_width="50dp"
         android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:lottie_rawRes="@raw/wifi_loading"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="15dp"
         app:lottie_autoPlay="true"
-        />
-
+        app:lottie_rawRes="@raw/wifi_loading" />
 
 
     <pl.droidsonroids.gif.GifImageView

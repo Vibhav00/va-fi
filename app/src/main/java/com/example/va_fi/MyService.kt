@@ -19,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class MyService : Service() {
 
-    var url :String =""
+    var url: String = ""
     override fun onBind(p0: Intent?): IBinder? {
         TODO("Not yet implemented")
     }
@@ -27,7 +27,7 @@ class MyService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         set()
         if (intent != null) {
-            url= intent.getStringExtra("url").toString()
+            url = intent.getStringExtra("url").toString()
         }
         return START_NOT_STICKY
     }
@@ -58,7 +58,8 @@ class MyService : Service() {
         {
             while (true) {
                 Log.e("service_running", "webpage is reloaded")
-                PreferenceUtils.getSharedPreferences(this@MyService).setLastActive(System.currentTimeMillis())
+                PreferenceUtils.getSharedPreferences(this@MyService)
+                    .setLastActive(System.currentTimeMillis())
                 delay(Constants.RELOAD_TIME)
                 wv.reload()
             }

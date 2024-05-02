@@ -18,20 +18,21 @@ class MainViewModel
 @Inject constructor(
     /** add note . delete note , get note , get notes **/
     private val mainRepository: MainRepository
-) :ViewModel() {
+) : ViewModel() {
 
-    fun getWifi()=mainRepository.getWifiUrls()
+    fun getWifi() = mainRepository.getWifiUrls()
 
-    fun setWifi(url:String){
+    fun setWifi(url: String) {
         viewModelScope.launch {
-            val wifiUrl= WifiUrl(null,url,true,System.currentTimeMillis(),0)
+            val wifiUrl = WifiUrl(null, url, true, System.currentTimeMillis(), 0)
             mainRepository.insertWifiUrl(wifiUrl)
         }
     }
-    fun deleteWifi(wifiUrl: WifiUrl){
-          viewModelScope.launch {
-              mainRepository.deleteWifiUrl(wifiUrl)
-          }
+
+    fun deleteWifi(wifiUrl: WifiUrl) {
+        viewModelScope.launch {
+            mainRepository.deleteWifiUrl(wifiUrl)
+        }
     }
 
 }

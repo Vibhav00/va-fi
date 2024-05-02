@@ -25,11 +25,12 @@ class SplashActivity : AppCompatActivity() {
         val iHome = Intent(this@SplashActivity, MainActivity::class.java)
         window.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
-            WindowManager.LayoutParams.FLAGS_CHANGED)
+            WindowManager.LayoutParams.FLAGS_CHANGED
+        )
 
         Handler(Looper.getMainLooper()).postDelayed({
             startActivity(iHome)
             finish()
-        },3000)
+        }, 3000)
     }
 }

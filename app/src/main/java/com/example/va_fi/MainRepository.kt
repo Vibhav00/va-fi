@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 class MainRepository(private val dao: WifiUrlDao) {
 
 
-     fun getWifiUrls(): LiveData<List<WifiUrl>> {
+    fun getWifiUrls(): LiveData<List<WifiUrl>> {
         return dao.getWifiUrls()
     }
 

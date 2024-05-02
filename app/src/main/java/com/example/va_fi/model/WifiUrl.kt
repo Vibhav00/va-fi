@@ -6,8 +6,12 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 
-@Entity(indices = [Index(value = ["url"],
-    unique = true)])
+@Entity(
+    indices = [Index(
+        value = ["url"],
+        unique = true
+    )]
+)
 data class WifiUrl(
     @PrimaryKey
     val id: Int? = null,

@@ -8,36 +8,36 @@
     tools:context=".ConnectionActivity">
 
 
-
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lot_ani"
         android:layout_width="269dp"
         android:layout_height="268dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:rotation="30"
+        android:rotationY="30"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.369"
-        android:rotation="30"
-        android:rotationY="30"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/anim_loading"
         app:lottie_speed="1" />
+
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/lot_ani_2"
         android:layout_width="269dp"
         android:layout_height="269dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.369"
-        app:lottie_autoPlay="true"
         android:rotation="30"
         android:rotationY="-30"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.369"
+        app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/anim_loading"
         app:lottie_speed="1" />
@@ -46,36 +46,33 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="150dp"
+        android:foregroundGravity="center"
+        android:gravity="center"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:foregroundGravity="center"
-        android:gravity="center">
-
+        app:layout_constraintStart_toStartOf="parent">
 
 
         <TextView
             android:id="@+id/tv_countdown"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2400"
-            android:fontFamily="@font/mad_hacker"
-            android:textSize="40dp"
-            android:textColor="#9B73F6"
             android:layout_gravity="center"
+            android:fontFamily="@font/mad_hacker"
             android:gravity="center"
-            />
+            android:text="2400"
+            android:textColor="#9B73F6"
+            android:textSize="40dp" />
 
 
         <Button
-            android:layout_marginTop="50dp"
             android:id="@+id/btn_close"
-            android:text="Disconnect"
-            android:textAllCaps="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            />
+            android:layout_marginTop="50dp"
+            android:text="Disconnect"
+            android:textAllCaps="true" />
 
 
     </LinearLayout>
