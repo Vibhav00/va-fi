@@ -46,6 +46,18 @@ class PreferenceUtils {
 
 
 
+        /** function to set active **/
+        fun getActive(): Boolean {
+            return mSharedPreferences.getBoolean("active",false)
+        }
+
+        fun setActive(active:Boolean): Boolean {
+            mSharedPreferences.edit().putBoolean("active",active).apply()
+            return true
+        }
+
+
+
 
     }
 }

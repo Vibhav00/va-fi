@@ -1,10 +1,14 @@
 package com.example.va_fi
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.va_fi.databinding.ActivityConnectionBinding
+import com.example.va_fi.preferenceutils.PreferenceUtils
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
@@ -40,6 +44,11 @@ class ConnectionActivity : AppCompatActivity() {
                     count=2400
                 activityConnectionBinding.tvCountdown.text = (count--).toString()
                 delay(1000)
+                if(!checkIfWifiIsActive()){
+                    Toast.makeText(this@ConnectionActivity, "Wifi Disconnected ", Toast.LENGTH_SHORT).show()
+                    finish()
+                    break
+                }
             }
 
         }
@@ -48,12 +57,14 @@ class ConnectionActivity : AppCompatActivity() {
     private fun startService() {
         val intent = Intent(this@ConnectionActivity, MyService::class.java)
         intent.putExtra("URL",url)
+        PreferenceUtils.getSharedPreferences(this@ConnectionActivity).setActive(true)
         startService(intent)
 
     }
 
     private fun stopService() {
         stopService(Intent(this@ConnectionActivity, MyService::class.java))
+        PreferenceUtils.getSharedPreferences(this@ConnectionActivity).setActive(false)
         finish()
     }
 
@@ -76,6 +87,21 @@ class ConnectionActivity : AppCompatActivity() {
 
 
 
+    /** Function to Check if wifi is active **/
+    private fun checkIfWifiIsActive(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo?.type == ConnectivityManager.TYPE_WIFI
 
+    }
+
+
+    /** Function to handle on back press  **/
+    override fun onBackPressed() {
+        super.onBackPressed()
+        PreferenceUtils.getSharedPreferences(this@ConnectionActivity).setActive(false)
+//        Toast.makeText(this,"disconnected lskdjf ", Toast.LENGTH_SHORT).show()
+    }
 
 }

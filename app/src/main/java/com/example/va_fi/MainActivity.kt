@@ -71,6 +71,31 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
         drawer.addDrawerListener(toggle)
         toggle.syncState()
 
+
+        if (Build.VERSION.SDK_INT > 9) {
+            val policy = ThreadPolicy.Builder().permitAll().build()
+            StrictMode.setThreadPolicy(policy)
+        }
+        this.checkIfActive()
+        this.setOnClickListener()
+        this.checkWifiActive()
+
+    }
+
+
+    /** function to handle click listeners **/
+    private fun setOnClickListener() {
+        activityMainBinding.btnConnect.setOnClickListener {
+            val text = PreferenceUtils.getSharedPreferences(this@MainActivity).getLastUrl()
+            startService(text, null)
+        }
+        activityMainBinding.btnAdd.setOnClickListener {
+            createInputDialog()
+        }
+        activityMainBinding.btnList.setOnClickListener {
+            displayList()
+        }
+
         navigationview.setNavigationItemSelectedListener { item ->
             when (item.itemId) {
 
@@ -134,29 +159,6 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
         }
 
 
-        if (Build.VERSION.SDK_INT > 9) {
-            val policy = ThreadPolicy.Builder().permitAll().build()
-            StrictMode.setThreadPolicy(policy)
-        }
-        this.checkIfActive()
-        this.setOnClickListener()
-        this.checkWifiActive()
-
-    }
-
-
-    /** function to handle click listeners **/
-    private fun setOnClickListener() {
-        activityMainBinding.btnConnect.setOnClickListener {
-            val text = PreferenceUtils.getSharedPreferences(this@MainActivity).getLastUrl()
-            startService(text, null)
-        }
-        activityMainBinding.btnAdd.setOnClickListener {
-            createInputDialog()
-        }
-        activityMainBinding.btnList.setOnClickListener {
-            displayList()
-        }
     }
 
 
@@ -199,7 +201,7 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
                 }
 
                 allListBinding.rvListWifi.adapter = AdapterWifi(it, this)
-                Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, it.toString(), Toast.LENGTH_SHORT).show()
             }
         )
     }
@@ -251,11 +253,7 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
     /** checking if the url is still active and WiFi is active  **/
     private fun checkIfActive() {
         try {
-              val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-              val networkInfo = connectivityManager.activeNetworkInfo
-              val isWifiActive = networkInfo?.type == ConnectivityManager.TYPE_WIFI
-
-              if (!isWifiActive)
+              if (!checkIfWifiIsActive())
               {
                   Toast.makeText(this, "WiFi is not active.", Toast.LENGTH_SHORT).show()
                   return
@@ -263,10 +261,10 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
 
             val lastTime = PreferenceUtils.getSharedPreferences(this).getLastActive()
             val currentTime = System.currentTimeMillis()
-            Toast.makeText(
-                this,
-                ((currentTime - lastTime) / (60_000)).toString(),
-                Toast.LENGTH_SHORT).show()
+//            Toast.makeText(
+//                this,
+//                ((currentTime - lastTime) / (60_000)).toString(),
+//                Toast.LENGTH_SHORT).show()
 
             if ((currentTime - lastTime) / (60_000) < 40) {
                 startDialog()
@@ -280,6 +278,15 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
 
     }
 
+
+    /** Function to Check if wifi is active **/
+    private fun checkIfWifiIsActive(): Boolean {
+        val connectivityManager =
+            getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connectivityManager.activeNetworkInfo
+        return networkInfo?.type == ConnectivityManager.TYPE_WIFI
+
+    }
 
     /** custom dialog for Still connected situations   **/
 
@@ -315,6 +322,10 @@ class MainActivity : AppCompatActivity(), AdapterWifi.OnClickWifiItem {
     private fun startService(textString: String, customDialog: AlertDialog?) {
         GlobalScope.launch(Dispatchers.Main) {
             var text = textString
+            if(!checkIfWifiIsActive()){
+                Toast.makeText(this@MainActivity, "Wifi is not Active.", Toast.LENGTH_SHORT).show()
+                return@launch
+            }
             if (!validateInput(text)) {
                 return@launch
             } else if (!validateJsoup(text)) {
