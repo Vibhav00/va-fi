@@ -63,6 +63,10 @@ This is an Android app built with Kotlin and XML using the MVVM design pattern a
 
 ## video 📺💻
 
+
+https://github.com/Vibhav00/va-fi/assets/101458238/0b1b8de2-2537-4029-84e7-fdc35da421e4
+
+
 ---
 
 ## Worning ⚠️⛔
