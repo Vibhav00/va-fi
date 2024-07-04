@@ -66,7 +66,7 @@ This is an Android app built with Kotlin and XML using the MVVM design pattern a
 
 <div align="center">
 <div  width="80%" >
-  <video width="80%"  controls>
+  <video width="80%"  height="200" controls>
   <source src="https://github.com/Vibhav00/va-fi/assets/101458238/0b1b8de2-2537-4029-84e7-fdc35da421e4" type=" video/mp4">
   </video>
 </div>
