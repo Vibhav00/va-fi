@@ -67,4 +67,4 @@ https://github.com/Vibhav00/va-fi/assets/101458238/0b1b8de2-2537-4029-84e7-fdc35
 
 ---
 
-## Worning ⚠️⛔
+## Warning ⚠️⛔
